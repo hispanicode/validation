@@ -121,7 +121,7 @@ if (isset($_POST["name"])) {
       /* ok */
   } else {
     /* error */
-    //get associative array with all erros
+    //get associative array with all errors
     $errors = $validation->getErrors();
     //get only one error, the first error.
     $first_error = $validation->getFirstError();
@@ -134,36 +134,36 @@ if (isset($_POST["name"])) {
 <ul>
   <li>required : the field is required</li>
   <li>checked : the field needs to be checked</li>
-  <li>min_length : minimum length of characters in string. Example: min_length:3</li>
-  <li>max_length :  maximum length of characters in string. Example: max_length:30</li>
-  <li>min : minimum numeric value. Example: min:1</li>
-  <li>max : maximum numeric value: Example: max:10</li>
-  <li>between : range of characters allowed. Example: between:3-20</li>
-  <li>range : range of allowable numeric values. Example: range:1-10</li>
-  <li>name : only allowed a-záéíóúàèìòùäëïöüâêîôûñ\s. (ignored uppercase)</li>
-  <li>alpha : only allowed a-záéíóúàèìòùäëïöüâêîôûñ (ignored uppercase)</li>
-  <li>alphanumeric : only allowed 0-9a-záéíóúàèìòùäëïöüâêîôûñ (ignored uppercase)</li>
+  <li>min_length : minimum length of characters in string. Example: <i>min_length:3</i></li>
+  <li>max_length :  maximum length of characters in string. Example: <i>max_length:30</i></li>
+  <li>min : minimum numeric value. Example: <i>min:1</i></li>
+  <li>max : maximum numeric value: Example: <i>max:10</i></li>
+  <li>between : range of characters allowed. Example: <i>between:3-20</i></li>
+  <li>range : range of allowable numeric values. Example: <i>range:1-10</i></li>
+  <li>name : only allowed a-záéíóúàèìòùäëïöüâêîôûñ\s. <i>(ignored uppercase)</i></li>
+  <li>alpha : only allowed a-záéíóúàèìòùäëïöüâêîôûñ <i>(ignored uppercase)</i></li>
+  <li>alphanumeric : only allowed 0-9a-záéíóúàèìòùäëïöüâêîôûñ <i>(ignored uppercase)</i></li>
   <li>digit : only digits</li>
   <li>email : only a valid email</li>
   <li>ip : only a valid ip</li>
   <li>url : only a valid url</li>
-  <li>date : only a valid date format. Example: date:Y-m-d</li>
-  <li>time : only a valid time format. Example: time:H:i:s</li>
-  <li>datetime : only a valid datetime format. Example: datetime:Y-m-d H:i:s</li>
-  <li>regex : regular expression filter. Example: regex:/^[a-z]$/i</li>
-  <li>equalsTo : The field value is equal to other field. Example: equalsTo:password</li>
+  <li>date : only a valid date format. Example: <i>date:Y-m-d</i></li>
+  <li>time : only a valid time format. Example: <i>time:H:i:s</i></li>
+  <li>datetime : only a valid datetime format. Example: <i>datetime:Y-m-d H:i:s</i></li>
+  <li>regex : regular expression filter. Example: <i>regex:/^[a-z]$/i</i></li>
+  <li>equalsTo : The field value is equal to other field. Example: <i>equalsTo:password</i></li>
   <li>float : only a float value</li>
   <li>integer : only a integer value</li>
   <li>numeric : only a numeric value</li>
-  <li>contains : the field needs to contain one of the required values. Example: contains:one,two,three</li>
+  <li>contains : the field needs to contain one of the required values. Example: <i>contains:one,two,three</i></li>
   <li>file_required : the input file is required</li>
-  <li>file_min_size : minimum size allowed for file. Example 1MB: file_min_size:1048576</li>
-  <li>file_max_size : maximum size allowed for file. Example 1024 bytes: file_min_size:1024</li>
-  <li>mime : mime type allowed for file. Example: mime:pdf,txt,js</li>
-  <li>img_min_width : minimum width allowed for image file. Example 250px: img_min_width:250</li>
-  <li>img_max_width : maximum width allowed for image file. Example 1024px: img_max_width:1024</li>
-  <li>img_min_height : minimum height allowed for image file. Example 250px: img_min_height:250</li>
-  <li>img_max_height : maximum height allowed for image file. Example 1024px: img_max_height:1024</li>
+  <li>file_min_size : minimum size allowed for file. Example 1MB: <i>file_min_size:1048576</i></li>
+  <li>file_max_size : maximum size allowed for file. Example 1024 bytes: <i>file_min_size:1024</i></li>
+  <li>mime : mime type allowed for file. Example: <i>mime:pdf,txt,js</i></li>
+  <li>img_min_width : minimum width allowed for image file. Example 250px: <i>img_min_width:250</i></li>
+  <li>img_max_width : maximum width allowed for image file. Example 1024px: <i>img_max_width:1024</i></li>
+  <li>img_min_height : minimum height allowed for image file. Example 250px: <i>img_min_height:250</i></li>
+  <li>img_max_height : maximum height allowed for image file. Example 1024px: <i>img_max_height:1024</i></li>
 </ul>
 
 
