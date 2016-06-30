@@ -1,0 +1,25 @@
+{
+  "name": "usmanhalalit/pixie",
+  "description": "Form validation model with fantastic tools for the client and server side with php and jQuery.",
+  "homepage": "https://github.com/hispanicoce/validation",
+  "keywords": [
+    "validation",
+    "validate",
+    "php",
+    "jQuery",
+    "server",
+    "client",
+	"form"
+  ],
+  "license": "GPL3",
+  "authors": [
+    {
+      "name": "Manu Dávila",
+      "email": "manudavgonz@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  }
+}
