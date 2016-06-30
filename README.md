@@ -2,7 +2,7 @@
 
 <h3>Form validation model with fantastic tools for the client and server side with php and jQuery.</h3>
 
-<strong>Important: for client-side validation it is necessary to include jQuery and file validation.js</strong>
+<strong>Important: for client-side validation it is necessary to include jQuery and file <a href="https://github.com/hispanicode/validation/tree/master/js">validation.js</a></strong>
 
 <h3>Simple usage</h3>
 
