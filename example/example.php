@@ -61,8 +61,8 @@ $validation->translate("en");
 $validation->client($rules, $messages, $events);
 $errors = null;
 $first_error = null;
-$validation->server($rules, $messages);
 if (isset($_POST["name"])) {
+	$validation->server($rules, $messages);
     if (!$validation->isValid()) {
         $errors = $validation->getErrors();
 		$first_error = $validation->getFirstError();
@@ -192,6 +192,6 @@ if (isset($_POST["name"])) {
 		</form>
 		<br /><br />
 	</div>
-<?php echo $validation->getClientValidation("#form") ?>
+		<?php echo $validation->getClientValidation("#form") ?>
 	</body>
 </html>
