@@ -224,7 +224,7 @@ class Validation
                         break;
 
                     case "name":
-                        $chars = "a-záéíóúàèìòùäëïöüâêîôûñ";
+                        $chars = "a-záéíóúàèìòùäëïöüâêîôûñ\s";
                         array_push($search, ":chars");
                         array_push($replace, $chars);
                         if (array_key_exists($key.".".$arg_condition, $messages)) {
@@ -1128,7 +1128,7 @@ class Validation
                         break;
 
                     case "name":
-                        $chars = "a-záéíóúàèìòùäëïöüâêîôûñ";
+                        $chars = "a-záéíóúàèìòùäëïöüâêîôûñ\s";
                         array_push($search, ":chars");
                         array_push($replace, $chars);
                         if (array_key_exists($key.".".$arg_condition, $messages)) {
