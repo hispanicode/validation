@@ -4,17 +4,22 @@ Form validation model with fantastic tools for the client and server side with p
 <h3>Simple usage</h3>
 
 <p>Require the class file</p>
-<code>
+<div class="highlight highlight-source-php">
+<pre>
 require "src/Validation.php";
-</code>
+</pre>
+</div>
 
 <p>New instance</p>
-<code>
+<div class="highlight highlight-source-php">
+<pre>
 $validation = new Validation();
-</code>
+</pre>
+</div>
 
 <p>Rules</p>
-<code>
+<div class="highlight highlight-source-php">
+<pre>
 $rules = array(
   "name" => "required|name|min_length:3|max_length:50",
   "email" => "required|email|min_length:6|max_length:80",
@@ -22,59 +27,72 @@ $rules = array(
   "confirm_password" => "required|equalsTo:password",
   "terms" => "checked",
 );
-</code>
+</pre>
+</div>
 
 <p>Optional. Custom messages. For example translate in other language (French)</p>
-<code>
+<div class="highlight highlight-source-php">
+<pre>
 $messages = array(
   "name.required" => "Le champ :attribute est obligatoire",
   /* ... */
 );
-</code>
+</pre>
+</div>
 
 <p>The default messages in distinct languages is possible in the <a href="https://github.com/hispanicode/validation/tree/master/src/translate">language.php</a> file. The spanish and english translates are availables but you can translate in your language.</p>
 
-<code>
+<div class="highlight highlight-source-php">
+<pre>
 //The default translate is "en" in this case not is need use the translate method.
 //Translate in spanish
 $validation->translate("es");
-</code>
+</pre>
+</div>
 
 <p>In the client validation is possible handle javascript events</p>
-<code>
+<div class="highlight highlight-source-php">
+<pre>
 $events = array(
   "name" => "keyup|blur|change",
   /* ... */
 );
-</code>
+</pre>
+</div>
 
 <p>Start the client validation</p>
-<code>
+<div class="highlight highlight-source-php">
+<pre>
 //The $messages and $events params are optionals
 $validation->client($rules, $messages, $events);
-</code>
+</pre>
+</div>
 
 <p>Generate the client validation is easy</p>
-<code>
+<div class="highlight highlight-source-php">
+<pre>
 //The argument is the id of the form
 echo $validation->getClientValidation("#form");
-</code>
+</pre>
+</div>
 
 <p>For get the client messages set the next structure based in the bootstrap css styles</p>
-<code>
-<form method="post" id="form">
-    <div class="form-group">
-        <label for="name">Name:</label> 
-        <input type="text" name="name" id="name" class="form-control" value="" />
-        <p id="error_name"></p>
-    </div>
+<div class="highlight highlight-source-html">
+<pre>
+&lt;form method="post" id="form"&gt;
+    &lt;div class="form-group"&gt;
+        &lt;label for="name"&gt;Name:&lt;/label&gt;
+        &lt;input type="text" name="name" id="name" class="form-control" value="" /&gt;
+        &lt;p id="error_name"&gt;&lt;/p&gt;
+    &lt;/div&gt;
     ...
-</form>
-</code>
+&lt;/form&gt;
+</pre>
+</div>
 
 <p>For the server side is the server() method</p>
-<code>
-
+<div class="highlight highlight-source-php">
+<pre>
 $validation = new Validation();
 
 //Is possible change the labels attributes with the attribute() method
@@ -109,9 +127,46 @@ if (isset($_POST["name"])) {
     $first_error = $validation->getFirstError();
   }
 }
-</code>
+</pre>
+</div>
 
 <h3>Validation rules options</h3>
 <ul>
-  <li></li>
+  <li>required : the field is required</li>
+  <li>checked : the field needs to be checked</li>
+  <li>min_length : minimum length of characters in string. Example: min_length:3</li>
+  <li>max_length :  maximum length of characters in string. Example: max_length:30</li>
+  <li>min : minimum numeric value. Example: min:1</li>
+  <li>max : maximum numeric value: Example: max:10</li>
+  <li>between : range of characters allowed. Example: between:3-20</li>
+  <li>range : range of allowable numeric values. Example: range:1-10</li>
+  <li>name : only allowed a-záéíóúàèìòùäëïöüâêîôûñ\s. (ignored uppercase)</li>
+  <li>alpha : only allowed a-záéíóúàèìòùäëïöüâêîôûñ (ignored uppercase)</li>
+  <li>alphanumeric : only allowed 0-9a-záéíóúàèìòùäëïöüâêîôûñ (ignored uppercase)</li>
+  <li>digit : only digits</li>
+  <li>email : only a valid email</li>
+  <li>ip : only a valid ip</li>
+  <li>url : only a valid url</li>
+  <li>date : only a valid date format. Example: date:Y-m-d</li>
+  <li>time : only a valid time format. Example: time:H:i:s</li>
+  <li>datetime : only a valid datetime format. Example: datetime:Y-m-d H:i:s</li>
+  <li>regex : regular expression filter. Example: regex:/^[a-z]$/i</li>
+  <li>equalsTo : The field value is equal to other field. Example: equalsTo:password</li>
+  <li>float : only a float value</li>
+  <li>integer : only a integer value</li>
+  <li>numeric : only a numeric value</li>
+  <li>contains : the field needs to contain one of the required values. Example: contains:one,two,three</li>
+  <li>file_required : the input file is required</li>
+  <li>file_min_size : minimum size allowed for file. Example 1MB: file_min_size:1048576</li>
+  <li>file_max_size : maximum size allowed for file. Example 1024 bytes: file_min_size:1024</li>
+  <li>mime : mime type allowed for file. Example: mime:pdf,txt,js</li>
+  <li>img_min_width : minimum width allowed for image file. Example 250px: img_min_width:250</li>
+  <li>img_max_width : maximum width allowed for image file. Example 1024px: img_max_width:1024</li>
+  <li>img_min_height : minimum height allowed for image file. Example 250px: img_min_height:250</li>
+  <li>img_max_height : maximum height allowed for image file. Example 1024px: img_max_height:1024</li>
 </ul>
+
+
+
+
+
