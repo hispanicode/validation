@@ -9,7 +9,7 @@
     "jQuery",
     "server",
     "client",
-	"form"
+    "form"
   ],
   "license": "GPL3",
   "authors": [
