@@ -921,19 +921,13 @@ class Validation
         $iterator = 0;
         $e = 0;
         foreach ($rules as $key => $val) {
-            $value = null;
-            if (!isset($_FILES[$key]) && !preg_match("/\:multiple/", $key)) {
-                if (isset($_REQUEST[$key])) {
-                    $value = $_REQUEST[$key];
-                }
-            }
-
-            if (!array_key_exists($key, $this->getAttributes())) {
-                $this->attributes[$key] = ucfirst($key);
-            }
-            
+			
             $conditions = $rules[$key];
             $conditions = explode("|", $conditions);
+			
+            if (!array_key_exists($key, $this->getAttributes())) {
+                $this->attributes[str_replace(":multiple", "", $key)] = ucfirst(str_replace(":multiple", "", $key));
+            }
 
             foreach ($conditions as $condition) {
                 $pos = strpos($condition, ":");
@@ -948,13 +942,10 @@ class Validation
                 
                 $search = array(
                     ":attribute",
-                    ":value",
                     ":condition"
                 );
-                
                 $replace = array(
-                    str_replace(":multiple", "", $this->attributes[$key]),
-                    $value,
+                    str_replace(":multiple", "", $this->attributes[str_replace(":multiple", "", $key)]),
                     $val_condition
                 );
 
