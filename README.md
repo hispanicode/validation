@@ -1,5 +1,8 @@
 # validation
-Form validation model with fantastic tools for the client and server side with php and jQuery.
+
+<h3>Form validation model with fantastic tools for the client and server side with php and jQuery.</h3>
+
+<strong>Important: for client-side validation it is necessary to include jQuery and file validation.js</strong>
 
 <h3>Simple usage</h3>
 
