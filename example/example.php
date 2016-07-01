@@ -2,6 +2,8 @@
 
 require "../src/Validation.php";
 
+use Hispanic\Validation;
+
 $validation = new Validation();
 $attributes = array(
 	"repeat_password" => "Repeat Password",

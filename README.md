@@ -16,6 +16,8 @@ require "src/Validation.php";
 <p>New instance</p>
 <div class="highlight highlight-source-php">
 <pre>
+use Hispanic\Validation;
+
 $validation = new Validation();
 </pre>
 </div>
@@ -96,6 +98,9 @@ echo $validation->getClientValidation("#form");
 <p>For the server side is the server() method</p>
 <div class="highlight highlight-source-php">
 <pre>
+
+use Hispanic\Validation;
+
 $validation = new Validation();
 
 //Is possible change the labels attributes with the attribute() method
