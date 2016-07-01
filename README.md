@@ -4,12 +4,23 @@
 
 <strong>Important: for client-side validation it is necessary to include jQuery and file <a href="https://github.com/hispanicode/validation/tree/master/js">validation.js</a></strong>
 
+<p>Install with composer</p>
+<div class="highlight highlight-source-php">
+<pre>
+composer require hispanicode/validation
+</pre>
+</div>
+
 <h3>Simple usage</h3>
 
 <p>Require the class file</p>
 <div class="highlight highlight-source-php">
 <pre>
 require "src/Validation.php";
+/* 
+if install with composer 
+require "vendor/autoload.php";
+*/
 </pre>
 </div>
 
@@ -17,7 +28,6 @@ require "src/Validation.php";
 <div class="highlight highlight-source-php">
 <pre>
 use Hispanic\Validation;
-
 $validation = new Validation();
 </pre>
 </div>
