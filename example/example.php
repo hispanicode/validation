@@ -12,8 +12,8 @@ $attributes = array(
 $validation->attributes($attributes);
 $rules = array(
 	"name" => "required|min_length:2|max_length:50|name",
-	"file:multiple" => "file_required|min_files:2|max_files:3|mime:png,jpg|file_min_size:1000|file_max_size:".(1024*1024),
-	"upload" => "file_required|mime:pdf|file_min_size:".(20)."|file_max_size:".(1024*1024),
+	"file" => "file_required|mime:pdf|file_min_size:".(20)."|file_max_size:".(1024*1024),
+	"files" => "file_required|min_files:2|max_files:3|mime:png,jpg|file_min_size:1000|file_max_size:".(1024*1024),
 	"image" => "file_required|mime:png,jpg|img_max_width:140|img_max_height:140",
 	"check" => "checked",
 	"date" => "required|date:Y/m/d",
@@ -23,7 +23,7 @@ $rules = array(
 	"email" => "required|email",
 	"url" => "required|url",
 	"regex" => "required|regex:/^[a-z]+$/",
-	"password" => "required",
+	"password" => "required|between:6-30",
 	"repeat_password" => "required|equalsTo:password",
 	"float" => "required|float",
 	"integer" => "required|integer",
@@ -34,14 +34,14 @@ $rules = array(
 );
 
 $messages = array(
-	//"name.required" => "El campo :attribute es requerido",$validation->server($rules, $messages);
-	// ...
+	//"name.required" => "El campo :attribute es requerido",
+	//"name.min_length" ...
 );
 	 
 $events = array(
 	"name" => "keyup|blur|change",
 	"file" => "change",
-	"upload" => "change",
+	"files" => "change",
 	"check" => "click",
 	"date" => "keyup|blur|change",
 	"time" => "keyup|blur|change",
@@ -90,103 +90,103 @@ if (isset($_POST["name"])) {
 		<?php print_r($errors) ?>
 		<form method="post" action="" id="form" enctype="multipart/form-data" class="form-horizontal">
 			<div class="form-group">
-				<label for="name">Name:</label> 
+				<label for="name">Name: <small>"name" =&gt; "required|min_length:2|max_length:50|name"</small></label> 
 				<input type="text" name="name" id="name" class="form-control" value="" />
 				<p id="error_name"></p>
 			</div>
 			<div class="form-group">
-				<label for="file">File Multiple:</label> 
-				<input type="file" name="file[]" id="file" multiple class="form-control" />
+				<label for="file">File: <small>"file" =&gt; "file_required|mime:pdf|file_min_size:".(20)."|file_max_size:".(1024*1024)</small></label> 
+				<input type="file" name="file" id="file" class="form-control" />
 				<p id="error_file"></p>
 			</div>
 			<div class="form-group">
-				<label for="upload">File:</label> 
-				<input type="file" name="upload" id="upload" class="form-control" />
-				<p id="error_upload"></p>
+				<label for="files">File Multiple: <small>"files" =&gt; "file_required|min_files:2|max_files:3|mime:png,jpg|file_min_size:1000|file_max_size:".(1024*1024)</small></label> 
+				<input type="file" name="files[]" id="files" multiple class="form-control" />
+				<p id="error_files"></p>
 			</div>
 			<div class="form-group">
-				<label for="image">Image:</label> 
+				<label for="image">Image: <small>"image" =&gt; "file_required|mime:png,jpg|img_max_width:140|img_max_height:140"</small></label> 
 				<input type="file" name="image" id="image" class="form-control" />
 				<p id="error_image"></p>
 			</div>
 			<div class="form-group">
 				<label for="check">
-					<input type="checkbox" name="check" id="check" /> Checkbox
+					<input type="checkbox" name="check" id="check" /> Checkbox <small>"check" =&gt; "checked"</small>
 				</label>
 				<p id="error_check"></p>
 			</div>
 			<div class="form-group">
-				<label for="date">Date:</label> 
+				<label for="date">Date: <small>"date" =&gt; "required|date:Y/m/d"</small></label> 
 				<input type="text" name="date" id="date" class="form-control" />
 				<p id="error_date"></p>
 			</div>
 			<div class="form-group">
-				<label for="time">Time:</label> 
+				<label for="time">Time: <small>"time" =&gt; "required|time:H:i:s"</small></label> 
 				<input type="text" name="time" id="time" class="form-control" />
 				<p id="error_time"></p>
 			</div>
 			<div class="form-group">
-				<label for="datetime">DateTime:</label> 
+				<label for="datetime">DateTime: <small>"datetime" =&gt; "required|datetime:Y/m/d H:i:s"</small></label> 
 				<input type="text" name="datetime" id="datetime" class="form-control" />
 				<p id="error_datetime"></p>
 			</div>
 			<div class="form-group">
-				<label for="ip">Ip:</label>
+				<label for="ip">Ip: <small>"ip" =&gt; "required|ip"</small></label>
 				<input type="text" name="ip" id="ip" class="form-control" />
 				<p id="error_ip"></p>
 			</div>
 			<div class="form-group">
-				<label for="email">Email:</label> 
+				<label for="email">Email: <small>"email" =&gt; "required|email"</small></label> 
 				<input type="text" name="email" id="email" class="form-control" />
 				<p id="error_email"></p>
 			</div>
 			<div class="form-group">
-				<label for="url">Url:</label> 
+				<label for="url">Url: <small>"url" =&gt; "required|url"</small></label> 
 				<input type="text" name="url" id="url" class="form-control" />
 				<p id="error_url"></p>
 			</div>
 			<div class="form-group">
-				<label for="regex">Regex:</label>
+				<label for="regex">Regex: <small>"regex" =&gt; "required|regex:/^[a-z]+$/"</small></label>
 				<input type="text" name="regex" id="regex" class="form-control" />
 				<p id="error_regex"></p>
 			</div>
 			<div class="form-group">
-				<label for="password">Password:</label>
+				<label for="password">Password: <small>"password" =&gt; "required|between:6-30"</small></label>
 				<input type="password" name="password" id="password" class="form-control" />
 				<p id="error_password"></p>
 			</div>
 			<div class="form-group">
-				<label for="repeat_password">Repeat password:</label>
+				<label for="repeat_password">Repeat password: <small>"repeat_password" =&gt; "required|equalsTo:password"</small></label>
 				<input type="password" name="repeat_password" id="repeat_password" class="form-control" />
 				<p id="error_repeat_password"></p>
 			</div>
 			<div class="form-group">
-				<label for="float">Float:</label>
+				<label for="float">Float: <small>"float" =&gt; "required|float"</small></label>
 				<input type="text" name="float" id="float" class="form-control" />
 				<p id="error_float"></p>
 			</div>
 			<div class="form-group">
-				<label for="integer">Integer:</label>
+				<label for="integer">Integer: <small>"integer" =&gt; "required|integer"</small></label>
 				<input type="text" name="integer" id="integer" class="form-control" />
 				<p id="error_integer"></p>
 			</div>
 			<div class="form-group">
-				<label for="numeric">Numeric:</label>
+				<label for="numeric">Numeric: <small>"numeric" =&gt; "required|numeric"</small></label>
 				<input type="text" name="numeric" id="numeric" class="form-control" />
 				<p id="error_numeric"></p>
 			</div>
 			<div class="form-group">
-				<label for="between">Between:</label>
+				<label for="between">Between: <small>"between" =&gt; "required|between:10-20"</small></label>
 				<input type="text" name="between" id="between" class="form-control" />
 				<p id="error_between"></p>
 			</div>
 			<div class="form-group">
-				<label for="range">Range:</label>
+				<label for="range">Range: <small>"range" =&gt; "required|range:1-10"</small></label>
 				<input type="text" name="range" id="range" class="form-control" />
 				<p id="error_range"></p>
 			</div>
 			<div class="form-group">
-				<label for="contains">Contains:</label>
+				<label for="contains">Contains: <small>"contains" =&gt; "required|contains:one,two,three"</small></label>
 				<input type="text" name="contains" id="contains" class="form-control" />
 				<p id="error_contains"></p>
 			</div>

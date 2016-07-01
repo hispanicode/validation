@@ -49,7 +49,7 @@ class Validation
         }
         foreach ($rules as $key => $val) {
             $value = null;
-            if (!isset($_FILES[$key]) && !preg_match("/\:multiple/", $key)) {
+            if (!isset($_FILES[$key])) {
                 if (isset($_REQUEST[$key])) {
                     $value = $_REQUEST[$key];
                 }
@@ -77,7 +77,7 @@ class Validation
                 );
                 
                 $replace = array(
-                    str_replace(":multiple", "", $this->attributes[$key]),
+                    $this->attributes[$key],
                     $value,
                     $val_condition
                 );
@@ -481,449 +481,439 @@ class Validation
                         break;
 
                     case "file_required":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                    $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
+                            if (isset($_FILES[$key]["size"][0])) {
+                                if (array_key_exists($key.".".$arg_condition, $messages)) {
+                                    $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
                                 } else {
                                     $string = $this->validation_translate[$this->lang]["file_required"];
                                     $this->msg = str_replace($search, $replace, $string);
                                 }
-                                if (!isset($_FILES[$_key]) || $_FILES[$_key]["size"][0] == 0) {
-                                    if (!$this->errorInCollection($_key)) {
-                                        $field = array($_key => $this->msg);
-                                        $this->error_messages[$_key] = $this->msg;
+                                if ($_FILES[$key]["size"][0] == 0) {
+                                    if (!$this->errorInCollection($key)) {
+                                        $field = array($key => $this->msg);
+                                        $this->error_messages[$key] = $this->msg;
                                     }
                                 }
-                            }
-                        } elseif (!isset($_FILES[$key]) || $_FILES[$key]["size"] == 0) {
-                            if (array_key_exists($key.".".$arg_condition, $messages)) {
-                                $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
-                            } else {
-                                $string = $this->validation_translate[$this->lang]["file_required"];
-                                $this->msg = str_replace($search, $replace, $string);
-                            }
-                            if (!$this->errorInCollection($key)) {
-                                $field = array($key => $this->msg);
-                                $this->error_messages[$key] = $this->msg;
-                            }
+                            } else if (isset($_FILES[$key]["size"])) {
+								if (array_key_exists($key.".".$arg_condition, $messages)) {
+									$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+								} else {
+									$string = $this->validation_translate[$this->lang]["file_required"];
+									$this->msg = str_replace($search, $replace, $string);
+								}
+								if ($_FILES[$key]["size"] == 0) {
+									if (!$this->errorInCollection($key)) {
+										$field = array($key => $this->msg);
+										$this->error_messages[$key] = $this->msg;
+									}
+								}
                         }
                         break;
 						
                     case "min_files":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                    $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
-                                } else {
-                                    $string = $this->validation_translate[$this->lang]["min_files"];
-                                    $this->msg = str_replace($search, $replace, $string);
-                                }
-                                if (isset($_FILES[$_key]) && count($_FILES[$_key]["name"]) < $val_condition) {
-                                    if (!$this->errorInCollection($_key)) {
-                                        $field = array($_key => $this->msg);
-                                        $this->error_messages[$_key] = $this->msg;
-                                    }
-                                }
-                            }
-                        }
+						if (isset($_FILES[$key]["size"][0])) {
+							if (array_key_exists($key.".".$arg_condition, $messages)) {
+								$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+							} else {
+								$string = $this->validation_translate[$this->lang]["min_files"];
+								$this->msg = str_replace($search, $replace, $string);
+							}
+							if (isset($_FILES[$key]) && count($_FILES[$key]["name"]) < $val_condition) {
+								if (!$this->errorInCollection($key)) {
+									$field = array($key => $this->msg);
+									$this->error_messages[$key] = $this->msg;
+								}
+							}
+						}
                         break;
 
                     case "max_files":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                    $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
-                                } else {
-                                    $string = $this->validation_translate[$this->lang]["max_files"];
-                                    $this->msg = str_replace($search, $replace, $string);
-                                }
-                                if (isset($_FILES[$_key]) && count($_FILES[$_key]["name"]) > $val_condition) {
-                                    if (!$this->errorInCollection($_key)) {
-                                        $field = array($_key => $this->msg);
-                                        $this->error_messages[$_key] = $this->msg;
-                                    }
-                                }
-                            }
-                        }
+						if (isset($_FILES[$key]["size"][0])) {
+							if (array_key_exists($key.".".$arg_condition, $messages)) {
+								$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+							} else {
+								$string = $this->validation_translate[$this->lang]["max_files"];
+								$this->msg = str_replace($search, $replace, $string);
+							}
+							if (isset($_FILES[$key]) && count($_FILES[$key]["name"]) > $val_condition) {
+								if (!$this->errorInCollection($key)) {
+									$field = array($key => $this->msg);
+									$this->error_messages[$key] = $this->msg;
+								}
+							}
+						}
                         break;
 
                     case "file_min_size":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                foreach (array_keys($_FILES[$_key]["name"]) as $index) {
-                                    $file = $_FILES[$_key]["name"][$index];
-                                    array_push($search, ":file");
-                                    array_push($replace, $file);
-                                    $megabytes = $val_condition/(1024*1024);
-                                    array_push($search, ":megabytes");
-                                    array_push($replace, $megabytes);
-                                    if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                        $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
-                                    } else {
-                                        $string = $this->validation_translate[$this->lang]["file_min_size"];
-                                        $this->msg = str_replace($search, $replace, $string);
-                                    }
-                                    if ($_FILES[$_key]["size"][$index] < $val_condition) {
-                                        if (!$this->errorInCollection($_key)) {
-                                            $field = array($_key => $this->msg);
-                                            $this->error_messages[$_key] = $this->msg;
-                                        }
-                                    }
-                                }
-                            }
-                        } elseif (isset($_FILES[$key]) && $_FILES[$key]["size"] > 0) {
-                            $file = $_FILES[$key]["name"];
-                            array_push($search, ":file");
-                            array_push($replace, $file);
-                            $megabytes = $val_condition/(1024*1024);
-                            array_push($search, ":megabytes");
-                            array_push($replace, $megabytes);
-                            if (array_key_exists($key.".".$arg_condition, $messages)) {
-                                $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
-                            } else {
-                                $string = $this->validation_translate[$this->lang]["file_min_size"];
-                                $this->msg = str_replace($search, $replace, $string);
-                            }
-                            if ($_FILES[$key]["size"] < $val_condition) {
-                                if (!$this->errorInCollection($key)) {
-                                    $field = array($key => $this->msg);
-                                    $this->error_messages[$key] = $this->msg;
-                                }
-                            }
-                        }
+						if (isset($_FILES[$key]["size"][0])) {
+							foreach (array_keys($_FILES[$key]["name"]) as $index) {
+								$file = $_FILES[$key]["name"][$index];
+								array_push($search, ":file");
+								array_push($replace, $file);
+								$megabytes = $val_condition/(1024*1024);
+								array_push($search, ":megabytes");
+								array_push($replace, $megabytes);
+								if (array_key_exists($key.".".$arg_condition, $messages)) {
+									$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+								} else {
+									$string = $this->validation_translate[$this->lang]["file_min_size"];
+									$this->msg = str_replace($search, $replace, $string);
+								}
+								if ($_FILES[$key]["size"][$index] < $val_condition) {
+									if (!$this->errorInCollection($key)) {
+										$field = array($key => $this->msg);
+										$this->error_messages[$key] = $this->msg;
+									}
+								}
+							}
+						}
+						else if (isset($_FILES[$key]["size"])) {
+							if ($_FILES[$key]["size"] > 0) {
+								$file = $_FILES[$key]["name"];
+								array_push($search, ":file");
+								array_push($replace, $file);
+								$megabytes = $val_condition/(1024*1024);
+								array_push($search, ":megabytes");
+								array_push($replace, $megabytes);
+								if (array_key_exists($key.".".$arg_condition, $messages)) {
+									$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+								} else {
+									$string = $this->validation_translate[$this->lang]["file_min_size"];
+									$this->msg = str_replace($search, $replace, $string);
+								}
+								if ($_FILES[$key]["size"] < $val_condition) {
+									if (!$this->errorInCollection($key)) {
+										$field = array($key => $this->msg);
+										$this->error_messages[$key] = $this->msg;
+									}
+								}
+							}
+						}
                         break;
 
                     case "file_max_size":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                foreach (array_keys($_FILES[$_key]["name"]) as $index) {
-                                    $file = $_FILES[$_key]["name"][$index];
-                                    array_push($search, ":file");
-                                    array_push($replace, $file);
-                                    $megabytes = $val_condition/(1024*1024);
-                                    array_push($search, ":megabytes");
-                                    array_push($replace, $megabytes);
-                                    if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                        $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
-                                    } else {
-                                        $string = $this->validation_translate[$this->lang]["file_max_size"];
-                                        $this->msg = str_replace($search, $replace, $string);
-                                    }
-                                    if ($_FILES[$_key]["size"][$index] > $val_condition) {
-                                        if (!$this->errorInCollection($_key)) {
-                                            $field = array($_key => $this->msg);
-                                            $this->error_messages[$_key] = $this->msg;
-                                        }
-                                    }
-                                }
-                            }
-                        } elseif (isset($_FILES[$key]) && $_FILES[$key]["size"] > 0) {
-                            $file = $_FILES[$key]["name"];
-                            array_push($search, ":file");
-                            array_push($replace, $file);
-                            $megabytes = $val_condition/(1024*1024);
-                            array_push($search, ":megabytes");
-                            array_push($replace, $megabytes);
-                            if (array_key_exists($key.".".$arg_condition, $messages)) {
-                                $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
-                            } else {
-                                $string = $this->validation_translate[$this->lang]["file_max_size"];
-                                $this->msg = str_replace($search, $replace, $string);
-                            }
-                            if ($_FILES[$key]["size"] > $val_condition) {
-                                if (!$this->errorInCollection($key)) {
-                                    $field = array($key => $this->msg);
-                                    $this->error_messages[$key] = $this->msg;
-                                }
-                            }
-                        }
+						if (isset($_FILES[$key]["size"][0])) {
+							foreach (array_keys($_FILES[$key]["name"]) as $index) {
+								$file = $_FILES[$key]["name"][$index];
+								array_push($search, ":file");
+								array_push($replace, $file);
+								$megabytes = $val_condition/(1024*1024);
+								array_push($search, ":megabytes");
+								array_push($replace, $megabytes);
+								if (array_key_exists($key.".".$arg_condition, $messages)) {
+									$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+								} else {
+									$string = $this->validation_translate[$this->lang]["file_max_size"];
+									$this->msg = str_replace($search, $replace, $string);
+								}
+								if ($_FILES[$key]["size"][$index] > $val_condition) {
+									if (!$this->errorInCollection($key)) {
+										$field = array($key => $this->msg);
+										$this->error_messages[$key] = $this->msg;
+									}
+								}
+							}
+						}
+						else if (isset($_FILES[$key]["size"])) {
+							if ($_FILES[$key]["size"] > 0) {
+								$file = $_FILES[$key]["name"];
+								array_push($search, ":file");
+								array_push($replace, $file);
+								$megabytes = $val_condition/(1024*1024);
+								array_push($search, ":megabytes");
+								array_push($replace, $megabytes);
+								if (array_key_exists($key.".".$arg_condition, $messages)) {
+									$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+								} else {
+									$string = $this->validation_translate[$this->lang]["file_max_size"];
+									$this->msg = str_replace($search, $replace, $string);
+								}
+								if ($_FILES[$key]["size"] > $val_condition) {
+									if (!$this->errorInCollection($key)) {
+										$field = array($key => $this->msg);
+										$this->error_messages[$key] = $this->msg;
+									}
+								}
+							}
+						}
                         break;
                         
                     case "mime":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                foreach (array_keys($_FILES[$_key]["name"]) as $index) {
-                                    if ($_FILES[$_key]["size"][$index] > 0) {
-                                        $types = explode(",", $val_condition);
-                                        $type = $_FILES[$_key]["type"][$index];
-                                        $type = explode("/", $type);
-                                        $ext = $type[1];
-                                        $is_allowed = false;
-                                        $file = $_FILES[$_key]["name"][$index];
-                                        array_push($search, ":file");
-                                        array_push($replace, $file);
-                                        array_push($search, ":mime");
-                                        array_push($replace, implode(" - ", $types));
-                                        if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                            $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
-                                        } else {
-                                            $string = $this->validation_translate[$this->lang]["mime"];
-                                            $this->msg = str_replace($search, $replace, $string);
-                                        }
-                                        foreach ($types as $e) {
-                                            if (strtolower($e) == strtolower($ext)) {
-                                                $is_allowed = true;
-                                                break;
-                                            }
-                                        }
-                                        if (!$is_allowed) {
-                                            if (!$this->errorInCollection($_key)) {
-                                                $field = array($_key => $this->msg);
-                                                $this->error_messages[$_key] = $this->msg;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        } elseif (isset($_FILES[$key]) && $_FILES[$key]["size"] > 0) {
-                            $types = explode(",", $val_condition);
-                            $type = $_FILES[$key]["type"];
-                            $type = explode("/", $type);
-                            $ext = $type[1];
-                            $is_allowed = false;
-                            $file = $_FILES[$key]["name"];
-                            array_push($search, ":file");
-                            array_push($replace, $file);
-                            array_push($search, ":mime");
-                            array_push($replace, implode(" - ", $types));
-                            if (array_key_exists($key.".".$arg_condition, $messages)) {
-                                $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
-                            } else {
-                                $string = $this->validation_translate[$this->lang]["mime"];
-                                $this->msg = str_replace($search, $replace, $string);
-                            }
-                            foreach ($types as $e) {
-                                if (strtolower($e) == strtolower($ext)) {
-                                    $is_allowed = true;
-                                    break;
-                                }
-                            }
-                            if (!$is_allowed) {
-                                if (!$this->errorInCollection($key)) {
-                                    $field = array($key => $this->msg);
-                                    $this->error_messages[$key] = $this->msg;
-                                }
-                            }
+                            if (isset($_FILES[$key]["size"][0])) {
+								if (is_array($_FILES[$key]["name"])) {
+									foreach (array_keys($_FILES[$key]["name"]) as $index) {
+										if ($_FILES[$key]["size"][$index] > 0) {
+											$types = explode(",", $val_condition);
+											$type = $_FILES[$key]["type"][$index];
+											$type = explode("/", $type);
+											$ext = $type[1];
+											$is_allowed = false;
+											$file = $_FILES[$key]["name"][$index];
+											array_push($search, ":file");
+											array_push($replace, $file);
+											array_push($search, ":mime");
+											array_push($replace, implode(" - ", $types));
+											if (array_key_exists($key.".".$arg_condition, $messages)) {
+												$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+											} else {
+												$string = $this->validation_translate[$this->lang]["mime"];
+												$this->msg = str_replace($search, $replace, $string);
+											}
+											foreach ($types as $e) {
+												if (strtolower($e) == strtolower($ext)) {
+													$is_allowed = true;
+													break;
+												}
+											}
+											if (!$is_allowed) {
+												if (!$this->errorInCollection($key)) {
+													$field = array($key => $this->msg);
+													$this->error_messages[$key] = $this->msg;
+												}
+											}
+										}
+									}
+								}
+                            } else if (isset($_FILES[$key]["size"])) {
+								if ($_FILES[$key]["size"] > 0) {
+									$types = explode(",", $val_condition);
+									$type = $_FILES[$key]["type"];
+									$type = explode("/", $type);
+									$ext = $type[1];
+									$is_allowed = false;
+									$file = $_FILES[$key]["name"];
+									array_push($search, ":file");
+									array_push($replace, $file);
+									array_push($search, ":mime");
+									array_push($replace, implode(" - ", $types));
+									if (array_key_exists($key.".".$arg_condition, $messages)) {
+										$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+									} else {
+										$string = $this->validation_translate[$this->lang]["mime"];
+										$this->msg = str_replace($search, $replace, $string);
+									}
+									foreach ($types as $e) {
+										if (strtolower($e) == strtolower($ext)) {
+											$is_allowed = true;
+											break;
+										}
+									}
+									if (!$is_allowed) {
+										if (!$this->errorInCollection($key)) {
+											$field = array($key => $this->msg);
+											$this->error_messages[$key] = $this->msg;
+										}
+									}
+							}
                         }
                         break;
                         
                     case "img_min_width":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                foreach (array_keys($_FILES[$_key]["name"]) as $index) {
-                                    if ($_FILES[$_key]["size"][$index] > 0) {
-                                        $content_type = explode("/", $_FILES[$_key]["type"][$index]);
-                                        $image = $content_type[0];
-                                        if (strtolower($image) == "image") {
-                                            $size = getimagesize($_FILES[$_key]["tmp_name"][$index]);
-                                            $file = $_FILES[$_key]["name"][$index];
-                                            array_push($search, ":file");
-                                            array_push($replace, $file);
-                                            if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                                $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
-                                            } else {
-                                                $string = $this->validation_translate[$this->lang]["img_min_width"];
-                                                $this->msg = str_replace($search, $replace, $string);
-                                            }
-                                            if ($size[0] < $val_condition) {
-                                                if (!$this->errorInCollection($_key)) {
-                                                    $field = array($_key => $this->msg);
-                                                    $this->error_messages[$_key] = $this->msg;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        } elseif (isset($_FILES[$key]) && $_FILES[$key]["size"] > 0) {
-                            $content_type = explode("/", $_FILES[$key]["type"]);
-                            $image = $content_type[0];
-                            if (strtolower($image) == "image") {
-                                $size = getimagesize($_FILES[$key]["tmp_name"]);
-                                $file = $_FILES[$key]["name"];
-                                array_push($search, ":file");
-                                array_push($replace, $file);
-                                if (array_key_exists($key.".".$arg_condition, $messages)) {
-                                    $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
-                                } else {
-                                    $string = $this->validation_translate[$this->lang]["img_min_width"];
-                                    $this->msg = str_replace($search, $replace, $string);
-                                }
-                                if ($size[0] < $val_condition) {
-                                    if (!$this->errorInCollection($key)) {
-                                        $field = array($key => $this->msg);
-                                        $this->error_messages[$key] = $this->msg;
-                                    }
-                                }
-                            }
+						if (isset($_FILES[$key]["size"][0])) {
+							foreach (array_keys($_FILES[$key]["name"]) as $index) {
+								if ($_FILES[$key]["size"][$index] > 0) {
+									$content_type = explode("/", $_FILES[$key]["type"][$index]);
+									$image = $content_type[0];
+									if (strtolower($image) == "image") {
+										$size = getimagesize($_FILES[$key]["tmp_name"][$index]);
+										$file = $_FILES[$key]["name"][$index];
+										array_push($search, ":file");
+										array_push($replace, $file);
+										if (array_key_exists($key.".".$arg_condition, $messages)) {
+											$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+										} else {
+											$string = $this->validation_translate[$this->lang]["img_min_width"];
+											$this->msg = str_replace($search, $replace, $string);
+										}
+										if ($size[0] < $val_condition) {
+											if (!$this->errorInCollection($key)) {
+												$field = array($key => $this->msg);
+												$this->error_messages[$key] = $this->msg;
+											}
+										}
+									}
+								}
+							}
+						} else if (isset($_FILES[$key]["size"])) {
+							if ($_FILES[$key]["size"] > 0) {
+								$content_type = explode("/", $_FILES[$key]["type"]);
+								$image = $content_type[0];
+								if (strtolower($image) == "image") {
+									$size = getimagesize($_FILES[$key]["tmp_name"]);
+									$file = $_FILES[$key]["name"];
+									array_push($search, ":file");
+									array_push($replace, $file);
+									if (array_key_exists($key.".".$arg_condition, $messages)) {
+										$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+									} else {
+										$string = $this->validation_translate[$this->lang]["img_min_width"];
+										$this->msg = str_replace($search, $replace, $string);
+									}
+									if ($size[0] < $val_condition) {
+										if (!$this->errorInCollection($key)) {
+											$field = array($key => $this->msg);
+											$this->error_messages[$key] = $this->msg;
+										}
+									}
+								}
+							}
                         }
                         break;
                         
                     case "img_max_width":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                foreach (array_keys($_FILES[$_key]["name"]) as $index) {
-                                    if ($_FILES[$_key]["size"][$index] > 0) {
-                                        $content_type = explode("/", $_FILES[$_key]["type"][$index]);
-                                        $image = $content_type[0];
-                                        if (strtolower($image) == "image") {
-                                            $size = getimagesize($_FILES[$_key]["tmp_name"][$index]);
-                                            $file = $_FILES[$_key]["name"][$index];
-                                            array_push($search, ":file");
-                                            array_push($replace, $file);
-                                            if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                                $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
-                                            } else {
-                                                $string = $this->validation_translate[$this->lang]["img_max_width"];
-                                                $this->msg = str_replace($search, $replace, $string);
-                                            }
-                                            if ($size[0] > $val_condition) {
-                                                if (!$this->errorInCollection($_key)) {
-                                                    $field = array($_key => $this->msg);
-                                                    $this->error_messages[$_key] = $this->msg;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        } elseif (isset($_FILES[$key]) && $_FILES[$key]["size"] > 0) {
-                            $content_type = explode("/", $_FILES[$key]["type"]);
-                            $image = $content_type[0];
-                            if (strtolower($image) == "image") {
-                                $size = getimagesize($_FILES[$key]["tmp_name"]);
-                                $file = $_FILES[$key]["name"];
-                                array_push($search, ":file");
-                                array_push($replace, $file);
-                                if (array_key_exists($key.".".$arg_condition, $messages)) {
-                                    $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
-                                } else {
-                                    $string = $this->validation_translate[$this->lang]["img_max_width"];
-                                    $this->msg = str_replace($search, $replace, $string);
-                                }
-                                if ($size[0] > $val_condition) {
-                                    if (!$this->errorInCollection($key)) {
-                                        $field = array($key => $this->msg);
-                                        $this->error_messages[$key] = $this->msg;
-                                    }
-                                }
-                            }
+						if (isset($_FILES[$key]["size"][0])) {
+							foreach (array_keys($_FILES[$key]["name"]) as $index) {
+								if ($_FILES[$key]["size"][$index] > 0) {
+									$content_type = explode("/", $_FILES[$key]["type"][$index]);
+									$image = $content_type[0];
+									if (strtolower($image) == "image") {
+										$size = getimagesize($_FILES[$key]["tmp_name"][$index]);
+										$file = $_FILES[$key]["name"][$index];
+										array_push($search, ":file");
+										array_push($replace, $file);
+										if (array_key_exists($key.".".$arg_condition, $messages)) {
+											$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+										} else {
+											$string = $this->validation_translate[$this->lang]["img_max_width"];
+											$this->msg = str_replace($search, $replace, $string);
+										}
+										if ($size[0] > $val_condition) {
+											if (!$this->errorInCollection($key)) {
+												$field = array($key => $this->msg);
+												$this->error_messages[$key] = $this->msg;
+											}
+										}
+									}
+								}
+							}
+						} else if (isset($_FILES[$key]["size"])) {
+							if ($_FILES[$key]["size"] > 0) {
+								$content_type = explode("/", $_FILES[$key]["type"]);
+								$image = $content_type[0];
+								if (strtolower($image) == "image") {
+									$size = getimagesize($_FILES[$key]["tmp_name"]);
+									$file = $_FILES[$key]["name"];
+									array_push($search, ":file");
+									array_push($replace, $file);
+									if (array_key_exists($key.".".$arg_condition, $messages)) {
+										$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+									} else {
+										$string = $this->validation_translate[$this->lang]["img_max_width"];
+										$this->msg = str_replace($search, $replace, $string);
+									}
+									if ($size[0] > $val_condition) {
+										if (!$this->errorInCollection($key)) {
+											$field = array($key => $this->msg);
+											$this->error_messages[$key] = $this->msg;
+										}
+									}
+								}
+							}
                         }
                         break;
                         
                     case "img_min_height":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                foreach (array_keys($_FILES[$_key]["name"]) as $index) {
-                                    if ($_FILES[$_key]["size"][$index] > 0) {
-                                        $content_type = explode("/", $_FILES[$_key]["type"][$index]);
+                            if (isset($_FILES[$key]["size"][0])) {
+                                foreach (array_keys($_FILES[$key]["name"]) as $index) {
+                                    if ($_FILES[$key]["size"][$index] > 0) {
+                                        $content_type = explode("/", $_FILES[$key]["type"][$index]);
                                         $image = $content_type[0];
                                         if (strtolower($image) == "image") {
-                                            $size = getimagesize($_FILES[$_key]["tmp_name"][$index]);
-                                            $file = $_FILES[$_key]["name"][$index];
+                                            $size = getimagesize($_FILES[$key]["tmp_name"][$index]);
+                                            $file = $_FILES[$key]["name"][$index];
                                             array_push($search, ":file");
                                             array_push($replace, $file);
-                                            if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                                $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
+                                            if (array_key_exists($key.".".$arg_condition, $messages)) {
+                                                $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
                                             } else {
                                                 $string = $this->validation_translate[$this->lang]["img_min_height"];
                                                 $this->msg = str_replace($search, $replace, $string);
                                             }
                                             if ($size[1] < $val_condition) {
-                                                if (!$this->errorInCollection($_key)) {
-                                                    $field = array($_key => $this->msg);
-                                                    $this->error_messages[$_key] = $this->msg;
+                                                if (!$this->errorInCollection($key)) {
+                                                    $field = array($key => $this->msg);
+                                                    $this->error_messages[$key] = $this->msg;
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
-                        } elseif (isset($_FILES[$key]) && $_FILES[$key]["size"] > 0) {
-                            $content_type = explode("/", $_FILES[$key]["type"]);
-                            $image = $content_type[0];
-                            if (strtolower($image) == "image") {
-                                $size = getimagesize($_FILES[$key]["tmp_name"]);
-                                $file = $_FILES[$key]["name"];
-                                array_push($search, ":file");
-                                array_push($replace, $file);
-                                if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                    $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
-                                } else {
-                                    $string = $this->validation_translate[$this->lang]["img_min_height"];
-                                    $this->msg = str_replace($search, $replace, $string);
-                                }
-                                if ($size[1] < $val_condition) {
-                                    if (!$this->errorInCollection($key)) {
-                                        $field = array($key => $this->msg);
-                                        $this->error_messages[$key] = $this->msg;
-                                    }
-                                }
-                            }
+                            } else if (isset($_FILES[$key]["size"])) {
+								if ($_FILES[$key]["size"] > 0) {
+									$content_type = explode("/", $_FILES[$key]["type"]);
+									$image = $content_type[0];
+									if (strtolower($image) == "image") {
+										$size = getimagesize($_FILES[$key]["tmp_name"]);
+										$file = $_FILES[$key]["name"];
+										array_push($search, ":file");
+										array_push($replace, $file);
+										if (array_key_exists($key.".".$arg_condition, $messages)) {
+											$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+										} else {
+											$string = $this->validation_translate[$this->lang]["img_min_height"];
+											$this->msg = str_replace($search, $replace, $string);
+										}
+										if ($size[1] < $val_condition) {
+											if (!$this->errorInCollection($key)) {
+												$field = array($key => $this->msg);
+												$this->error_messages[$key] = $this->msg;
+											}
+										}
+									}
+							}
                         }
                         break;
                         
                     case "img_max_height":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-                            if (isset($_FILES[$_key])) {
-                                foreach (array_keys($_FILES[$_key]["name"]) as $index) {
-                                    if ($_FILES[$_key]["size"][$index] > 0) {
-                                        $content_type = explode("/", $_FILES[$_key]["type"][$index]);
+                            if (isset($_FILES[$key]["size"][0])) {
+                                foreach (array_keys($_FILES[$key]["name"]) as $index) {
+                                    if ($_FILES[$key]["size"][$index] > 0) {
+                                        $content_type = explode("/", $_FILES[$key]["type"][$index]);
                                         $image = $content_type[0];
                                         if (strtolower($image) == "image") {
-                                            $size = getimagesize($_FILES[$_key]["tmp_name"][$index]);
-                                            $file = $_FILES[$_key]["name"][$index];
+                                            $size = getimagesize($_FILES[$key]["tmp_name"][$index]);
+                                            $file = $_FILES[$key]["name"][$index];
                                             array_push($search, ":file");
                                             array_push($replace, $file);
-                                            if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                                $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
+                                            if (array_key_exists($key.".".$arg_condition, $messages)) {
+                                                $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
                                             } else {
                                                 $string = $this->validation_translate[$this->lang]["img_max_height"];
                                                 $this->msg = str_replace($search, $replace, $string);
                                             }
                                             if ($size[1] > $val_condition) {
-                                                if (!$this->errorInCollection($_key)) {
-                                                    $field = array($_key => $this->msg);
-                                                    $this->error_messages[$_key] = $this->msg;
+                                                if (!$this->errorInCollection($key)) {
+                                                    $field = array($key => $this->msg);
+                                                    $this->error_messages[$key] = $this->msg;
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
-                        } elseif (isset($_FILES[$key]) && $_FILES[$key]["size"] > 0) {
-                            $content_type = explode("/", $_FILES[$key]["type"]);
-                            $image = $content_type[0];
-                            if (strtolower($image) == "image") {
-                                $size = getimagesize($_FILES[$key]["tmp_name"]);
-                                $file = $_FILES[$key]["name"];
-                                array_push($search, ":file");
-                                array_push($replace, $file);
-                                if (array_key_exists($_key.".".$arg_condition, $messages)) {
-                                    $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
-                                } else {
-                                     $string = $this->validation_translate[$this->lang]["img_max_height"];
-                                    $this->msg = str_replace($search, $replace, $string);
-                                }
-                                if ($size[1] > $val_condition) {
-                                    if (!$this->errorInCollection($key)) {
-                                        $field = array($key => $this->msg);
-                                        $this->error_messages[$key] = $this->msg;
-                                    }
-                                }
-                            }
-                        }
+                            } else if (isset($_FILES[$key]["size"])) {
+								if ($_FILES[$key]["size"] > 0) {
+									$content_type = explode("/", $_FILES[$key]["type"]);
+									$image = $content_type[0];
+									if (strtolower($image) == "image") {
+										$size = getimagesize($_FILES[$key]["tmp_name"]);
+										$file = $_FILES[$key]["name"];
+										array_push($search, ":file");
+										array_push($replace, $file);
+										if (array_key_exists($key.".".$arg_condition, $messages)) {
+											$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+										} else {
+											 $string = $this->validation_translate[$this->lang]["img_max_height"];
+											$this->msg = str_replace($search, $replace, $string);
+										}
+										if ($size[1] > $val_condition) {
+											if (!$this->errorInCollection($key)) {
+												$field = array($key => $this->msg);
+												$this->error_messages[$key] = $this->msg;
+											}
+										}
+									}
+								}
+							}
                         break;
                     }
             }
@@ -940,7 +930,7 @@ class Validation
             $conditions = explode("|", $conditions);
 			
             if (!array_key_exists($key, $this->getAttributes())) {
-                $this->attributes[str_replace(":multiple", "", $key)] = ucfirst(str_replace(":multiple", "", $key));
+                $this->attributes[$key] = ucfirst($key);
             }
 
             foreach ($conditions as $condition) {
@@ -959,7 +949,7 @@ class Validation
                     ":condition"
                 );
                 $replace = array(
-                    str_replace(":multiple", "", $this->attributes[str_replace(":multiple", "", $key)]),
+                    $this->attributes[$key],
                     $val_condition
                 );
 
@@ -1449,9 +1439,6 @@ class Validation
                         break;
 
                     case "file_required":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $key = explode(":", $key)[0];
-                        }
                         if (array_key_exists($key.".".$arg_condition, $messages)) {
                             $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
                         } else {
@@ -1471,9 +1458,6 @@ class Validation
                         break;
 						
                     case "min_files":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-						}
 						if (array_key_exists($key.".".$arg_condition, $messages)) {
 							$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
 						} else {
@@ -1493,9 +1477,6 @@ class Validation
                         break;
 
                     case "max_files":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $_key = explode(":", $key)[0];
-						}
 						if (array_key_exists($key.".".$arg_condition, $messages)) {
 							$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
 						} else {
@@ -1515,9 +1496,6 @@ class Validation
                         break;
 						
                     case "file_min_size":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $key = explode(":", $key)[0];
-                        }
                         $megabytes = $val_condition/(1024*1024);
                         array_push($search, ":megabytes");
                         array_push($replace, $megabytes);
@@ -1540,9 +1518,6 @@ class Validation
                         break;
 
                     case "file_max_size":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $key = explode(":", $key)[0];
-                        }
                         $megabytes = $val_condition/(1024*1024);
                         array_push($search, ":megabytes");
                         array_push($replace, $megabytes);
@@ -1565,9 +1540,6 @@ class Validation
                         break;
                         
                     case "mime":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $key = explode(":", $key)[0];
-                        }
                         $mimes = explode(",", $val_condition);
                         array_push($search, ":mime");
                         array_push($replace, implode(" - ", $mimes));
@@ -1590,9 +1562,6 @@ class Validation
                         break;
                         
                     case "img_min_width":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $key = explode(":", $key)[0];
-                        }
                         if (array_key_exists($key.".".$arg_condition, $messages)) {
                             $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
                         } else {
@@ -1636,9 +1605,6 @@ class Validation
                         break;
                         
                     case "img_max_width":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $key = explode(":", $key)[0];
-                        }
                         if (array_key_exists($key.".".$arg_condition, $messages)) {
                             $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
                         } else {
@@ -1682,9 +1648,6 @@ class Validation
                         break;
                         
                     case "img_min_height":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $key = explode(":", $key)[0];
-                        }
                         if (array_key_exists($key.".".$arg_condition, $messages)) {
                             $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
                         } else {
@@ -1728,9 +1691,6 @@ class Validation
                         break;
                         
                     case "img_max_height":
-                        if (preg_match("/\:multiple/", $key)) {
-                            $key = explode(":", $key)[0];
-                        }
                         if (array_key_exists($key.".".$arg_condition, $messages)) {
                             $this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
                         } else {
