@@ -1,26 +1,15 @@
 {
-  "name": "hispanicode/validation",
-  "description": "Form validation model with fantastic tools for the client and server side with php and jQuery.",
-  "homepage": "https://github.com/hispanicoce/validation",
-  "keywords": [
-    "validation",
-    "validate",
-    "php",
-    "jQuery",
-    "server",
-    "client",
-    "form"
-  ],
-  "minimum-stability": "dev",
-  "license": "GPL3",
-  "authors": [
-    {
-      "name": "Manu Dávila",
-      "email": "manudavgonz@gmail.com",
-      "role": "Developer"
-    }
-  ],
-  "require": {
-    "php": ">=5.3.0"
-  }
+    "name": "hispanicode/validation",
+    "description": "Form validation model with fantastic tools for the client and server sides with php and jQuery.",
+    "license": "GPL3",
+    "authors": [
+        {
+            "name": "hispanicode",
+            "email": "info@hispanicode.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+		"php": ">=5.3.0"
+	}
 }
