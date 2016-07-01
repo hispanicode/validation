@@ -1,5 +1,5 @@
 {
-  "name": "usmanhalalit/pixie",
+  "name": "hispanicode/validation",
   "description": "Form validation model with fantastic tools for the client and server side with php and jQuery.",
   "homepage": "https://github.com/hispanicoce/validation",
   "keywords": [
@@ -11,6 +11,7 @@
     "client",
     "form"
   ],
+  "minimum-stability": "dev",
   "license": "GPL3",
   "authors": [
     {
