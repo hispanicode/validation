@@ -135,38 +135,40 @@ if (isset($_POST["name"])) {
 
 <h3>Validation rules options</h3>
 <ul>
-  <li>required : the field is required</li>
-  <li>checked : the field needs to be checked</li>
-  <li>min_length : minimum length of characters in string. Example: <i>min_length:3</i></li>
-  <li>max_length :  maximum length of characters in string. Example: <i>max_length:30</i></li>
-  <li>min : minimum numeric value. Example: <i>min:1</i></li>
-  <li>max : maximum numeric value: Example: <i>max:10</i></li>
-  <li>between : range of characters allowed. Example: <i>between:3-20</i></li>
-  <li>range : range of allowable numeric values. Example: <i>range:1-10</i></li>
-  <li>name : only allowed a-záéíóúàèìòùäëïöüâêîôûñ\s. <i>(ignored uppercase)</i></li>
-  <li>alpha : only allowed a-záéíóúàèìòùäëïöüâêîôûñ <i>(ignored uppercase)</i></li>
-  <li>alphanumeric : only allowed 0-9a-záéíóúàèìòùäëïöüâêîôûñ <i>(ignored uppercase)</i></li>
-  <li>digit : only digits</li>
-  <li>email : only a valid email</li>
-  <li>ip : only a valid ip</li>
-  <li>url : only a valid url</li>
-  <li>date : only a valid date format. Example: <i>date:Y-m-d</i></li>
-  <li>time : only a valid time format. Example: <i>time:H:i:s</i></li>
-  <li>datetime : only a valid datetime format. Example: <i>datetime:Y-m-d H:i:s</i></li>
-  <li>regex : regular expression filter. Example: <i>regex:/^[a-z]$/i</i></li>
-  <li>equalsTo : The field value is equal to other field. Example: <i>equalsTo:password</i></li>
-  <li>float : only a float value</li>
-  <li>integer : only a integer value</li>
-  <li>numeric : only a numeric value</li>
-  <li>contains : the field needs to contain one of the required values. Example: <i>contains:one,two,three</i></li>
-  <li>file_required : the input file is required</li>
-  <li>file_min_size : minimum size allowed for file. Example 1MB: <i>file_min_size:1048576</i></li>
-  <li>file_max_size : maximum size allowed for file. Example 1024 bytes: <i>file_min_size:1024</i></li>
-  <li>mime : mime type allowed for file. Example: <i>mime:pdf,txt,js</i></li>
-  <li>img_min_width : minimum width allowed for image file. Example 250px: <i>img_min_width:250</i></li>
-  <li>img_max_width : maximum width allowed for image file. Example 1024px: <i>img_max_width:1024</i></li>
-  <li>img_min_height : minimum height allowed for image file. Example 250px: <i>img_min_height:250</i></li>
-  <li>img_max_height : maximum height allowed for image file. Example 1024px: <i>img_max_height:1024</i></li>
+  <li><strong>required</strong> : the field is required</li>
+  <li><strong>checked</strong> : the field needs to be checked</li>
+  <li><strong>min_length</strong> : minimum length of characters in string. Example: <i>min_length:3</i></li>
+  <li><strong>max_length</strong> :  maximum length of characters in string. Example: <i>max_length:30</i></li>
+  <li><strong>min</strong> : minimum numeric value. Example: <i>min:1</i></li>
+  <li><strong>max</strong> : maximum numeric value: Example: <i>max:10</i></li>
+  <li><strong>between</strong> : range of characters allowed. Example: <i>between:3-20</i></li>
+  <li><strong>range</strong> : range of allowable numeric values. Example: <i>range:1-10</i></li>
+  <li><strong>name</strong> : only allowed a-záéíóúàèìòùäëïöüâêîôûñ\s. <i>(ignored uppercase)</i></li>
+  <li><strong>alpha</strong> : only allowed a-záéíóúàèìòùäëïöüâêîôûñ <i>(ignored uppercase)</i></li>
+  <li><strong>alphanumeric</strong> : only allowed 0-9a-záéíóúàèìòùäëïöüâêîôûñ <i>(ignored uppercase)</i></li>
+  <li><strong>digit</strong> : only digits</li>
+  <li><strong>email</strong> : only a valid email</li>
+  <li><strong>ip</strong> : only a valid ip</li>
+  <li><strong>url</strong> : only a valid url</li>
+  <li><strong>date</strong> : only a valid date format. Example: <i>date:Y-m-d</i></li>
+  <li><strong>time</strong> : only a valid time format. Example: <i>time:H:i:s</i></li>
+  <li><strong>datetime</strong> : only a valid datetime format. Example: <i>datetime:Y-m-d H:i:s</i></li>
+  <li><strong>regex</strong> : regular expression filter. Example: <i>regex:/^[a-z]$/i</i></li>
+  <li><strong>equalsTo</strong> : The field value is equal to other field. Example: <i>equalsTo:password</i></li>
+  <li><strong>float</strong> : only a float value</li>
+  <li><strong>integer</strong> : only a integer value</li>
+  <li><strong>numeric</strong> : only a numeric value</li>
+  <li><strong>contains</strong> : the field needs to contain one of the required values. Example: <i>contains:one,two,three</i></li>
+  <li><strong>file_required</strong> : the input file is required</li>
+  <li><strong>min_files</strong> : minimum number of files allowed in input file multiple. Example: <i>min_files:2</i></li>
+  <li><strong>max_files</strong> : maximum number of files allowed in input file multiple. Example: <i>max_files:10</i></li>
+  <li><strong>file_min_size</strong> : minimum size allowed for file. Example 1MB: <i>file_min_size:1048576</i></li>
+  <li><strong>file_max_size</strong> : maximum size allowed for file. Example 1024 bytes: <i>file_min_size:1024</i></li>
+  <li><strong>mime</strong> : mime type allowed for file. Example: <i>mime:pdf,txt,js</i></li>
+  <li><strong>img_min_width</strong> : minimum width allowed for image file. Example 250px: <i>img_min_width:250</i></li>
+  <li><strong>img_max_width</strong> : maximum width allowed for image file. Example 1024px: <i>img_max_width:1024</i></li>
+  <li><strong>img_min_height</strong> : minimum height allowed for image file. Example 250px: <i>img_min_height:250</i></li>
+  <li><strong>img_max_height</strong> : maximum height allowed for image file. Example 1024px: <i>img_max_height:1024</i></li>
 </ul>
 
 

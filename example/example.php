@@ -10,7 +10,7 @@ $attributes = array(
 $validation->attributes($attributes);
 $rules = array(
 	"name" => "required|min_length:2|max_length:50|name",
-	"file:multiple" => "file_required|mime:png,jpg|file_min_size:1000|file_max_size:".(1024*1024),
+	"file:multiple" => "file_required|min_files:2|max_files:3|mime:png,jpg|file_min_size:1000|file_max_size:".(1024*1024),
 	"upload" => "file_required|mime:pdf|file_min_size:".(20)."|file_max_size:".(1024*1024),
 	"image" => "file_required|mime:png,jpg|img_max_width:140|img_max_height:140",
 	"check" => "checked",

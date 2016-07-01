@@ -87,7 +87,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["required"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_required('".$key."', '".htmlspecialchars($this->msg)."')");
                         if (empty($value)) {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -103,7 +102,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["checked"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_checked('".$key."', '".htmlspecialchars($this->msg)."')");
                         if ($value == null) {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -119,7 +117,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["min_length"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_min_length('".$key."', ".$val_condition.", '".htmlspecialchars($this->msg)."')");
                         if (strlen($value) < $val_condition && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -136,7 +133,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["max_length"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_max_length('".$key."', ".$val_condition.", '".htmlspecialchars($this->msg)."')");
                         if (strlen($value) > $val_condition && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -152,7 +148,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["min"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_min('".$key."', ".$val_condition.", '".htmlspecialchars($this->msg)."')");
                         if ($value < $val_condition && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -168,7 +163,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["max"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_max('".$key."', ".$val_condition.", '".htmlspecialchars($this->msg)."')");
                         if ($value > $val_condition && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -191,7 +185,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["between"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_between('".$key."', ".$min.", ".$max.", '".htmlspecialchars($this->msg)."')");
                         if (strlen($value) < $min || strlen($value) > $max && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -214,7 +207,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["range"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_range('".$key."', ".$min.", ".$max.", '".htmlspecialchars($this->msg)."')");
                         if ($value < $min || $value > $max && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -233,7 +225,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["name"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_regex('".$key."', /^[a-záéíóúàèìòùäëïöüâêîôûñ\s]+$/i, '".htmlspecialchars($this->msg)."')");
                         if (!preg_match("/^[a-záéíóúàèìòùäëïöüâêîôûñ\s]+$/i", $value) && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -252,7 +243,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["alpha"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_regex('".$key."', /^[a-záéíóúàèìòùäëïöüâêîôûñ]+$/i, '".htmlspecialchars($this->msg)."')");
                         if (!preg_match("/^[a-záéíóúàèìòùäëïöüâêîôûñ]+$/i", $value) && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -271,7 +261,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["alphanumeric"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_regex('".$key."', /^[0-9a-záéíóúàèìòùäëïöüâêîôûñ]+$/i, '".htmlspecialchars($this->msg)."')");
                         if (!preg_match("/^[0-9a-záéíóúàèìòùäëïöüâêîôûñ]+$/i", $value) && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -287,7 +276,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["digit"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_regex('".$key."', /^[0-9]+$/, '".htmlspecialchars($this->msg)."')");
                         if (!preg_match("/^[0-9]+$/", $value) && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -303,7 +291,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["email"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_regex('".$key."', /^(([^<>()\[\]\\.,;:\s@\"]+(\.[^<>()\[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, '".htmlspecialchars($this->msg)."')");
                         if (!preg_match("/^(([^<>()\[\]\\.,;:\s@\"]+(\.[^<>()\[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/", $value) && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -319,7 +306,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["ip"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_regex('".$key."', /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/, '".htmlspecialchars($this->msg)."')");
                         if (!preg_match("/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/", $value) && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -335,7 +321,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["url"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_regex('".$key."', /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i, '".htmlspecialchars($this->msg)."')");
                         if (!filter_var($value, FILTER_VALIDATE_URL) !== false && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -351,7 +336,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["date"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_date('".$key."', '".$val_condition."', '".htmlspecialchars($this->msg)."')");
                         $datetime = new \DateTime();
                         if ($datetime->createFromFormat($val_condition, $value) === false && $value != "") {
                             if (!$this->errorInCollection($key)) {
@@ -368,7 +352,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["time"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_time('".$key."', '".$val_condition."', '".htmlspecialchars($this->msg)."')");
                         $datetime = new \DateTime();
                         if ($datetime->createFromFormat($val_condition, $value) === false && $value != "") {
                             if (!$this->errorInCollection($key)) {
@@ -385,7 +368,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["datetime"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_datetime('".$key."', '".$val_condition."', '".htmlspecialchars($this->msg)."')");
                         $datetime = new \DateTime();
                         if ($datetime->createFromFormat($val_condition, $value) === false && $value != "") {
                             if (!$this->errorInCollection($key)) {
@@ -402,7 +384,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["regex"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_regex('".$key."', $val_condition, '".htmlspecialchars($this->msg)."')");
                         if (!preg_match($val_condition, $value) && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -418,7 +399,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["equalsTo"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_equalsTo('".$key."', '".$val_condition."', '".htmlspecialchars($this->msg)."')");
                         if (isset($_REQUEST[$val_condition])) {
                             if ($value != $_REQUEST[$val_condition]) {
                                 if (!$this->errorInCollection($key)) {
@@ -436,7 +416,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["float"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_float('".$key."', '".htmlspecialchars($this->msg)."')");
                         if (!filter_var($value, FILTER_VALIDATE_FLOAT) !== false && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -452,7 +431,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["integer"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_integer('".$key."', '".htmlspecialchars($this->msg)."')");
                         if (!filter_var($value, FILTER_VALIDATE_INT) !== false && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -468,7 +446,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["numeric"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_numeric('".$key."', '".htmlspecialchars($this->msg)."')");
                         if (!is_numeric($value) && $value != "") {
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
@@ -487,7 +464,6 @@ class Validation
                             $string = $this->validation_translate[$this->lang]["contains"];
                             $this->msg = str_replace($search, $replace, $string);
                         }
-                        array_push($this->clientValidation, "validation_contains('".$key."', '".$val_condition."', '".htmlspecialchars($this->msg)."')");
                         $isValid = false;
                         foreach ($match as $m) {
                             if ($m == $value) {
@@ -512,7 +488,6 @@ class Validation
                                     $string = $this->validation_translate[$this->lang]["file_required"];
                                     $this->msg = str_replace($search, $replace, $string);
                                 }
-                                array_push($this->clientValidation, "validation_file_required('".$_key."', '".htmlspecialchars($this->msg)."')");
                                 if (!isset($_FILES[$_key]) || $_FILES[$_key]["size"][0] == 0) {
                                     if (!$this->errorInCollection($_key)) {
                                         $field = array($_key => $this->msg);
@@ -527,10 +502,49 @@ class Validation
                                 $string = $this->validation_translate[$this->lang]["file_required"];
                                 $this->msg = str_replace($search, $replace, $string);
                             }
-                            array_push($this->clientValidation, "validation_file_required('".$key."', '".htmlspecialchars($this->msg)."')");
                             if (!$this->errorInCollection($key)) {
                                 $field = array($key => $this->msg);
                                 $this->error_messages[$key] = $this->msg;
+                            }
+                        }
+                        break;
+						
+                    case "min_files":
+                        if (preg_match("/\:multiple/", $key)) {
+                            $_key = explode(":", $key)[0];
+                            if (isset($_FILES[$_key])) {
+                                if (array_key_exists($_key.".".$arg_condition, $messages)) {
+                                    $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
+                                } else {
+                                    $string = $this->validation_translate[$this->lang]["min_files"];
+                                    $this->msg = str_replace($search, $replace, $string);
+                                }
+                                if (isset($_FILES[$_key]) && count($_FILES[$_key]["name"]) < $val_condition) {
+                                    if (!$this->errorInCollection($_key)) {
+                                        $field = array($_key => $this->msg);
+                                        $this->error_messages[$_key] = $this->msg;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+
+                    case "max_files":
+                        if (preg_match("/\:multiple/", $key)) {
+                            $_key = explode(":", $key)[0];
+                            if (isset($_FILES[$_key])) {
+                                if (array_key_exists($_key.".".$arg_condition, $messages)) {
+                                    $this->msg = str_replace($search, $replace, $messages[$_key.".".$arg_condition]);
+                                } else {
+                                    $string = $this->validation_translate[$this->lang]["max_files"];
+                                    $this->msg = str_replace($search, $replace, $string);
+                                }
+                                if (isset($_FILES[$_key]) && count($_FILES[$_key]["name"]) > $val_condition) {
+                                    if (!$this->errorInCollection($_key)) {
+                                        $field = array($_key => $this->msg);
+                                        $this->error_messages[$_key] = $this->msg;
+                                    }
+                                }
                             }
                         }
                         break;
@@ -552,7 +566,6 @@ class Validation
                                         $string = $this->validation_translate[$this->lang]["file_min_size"];
                                         $this->msg = str_replace($search, $replace, $string);
                                     }
-                                    array_push($this->clientValidation, "validation_file_min_size('".$_key."', $val_condition, '".htmlspecialchars($this->msg)."')");
                                     if ($_FILES[$_key]["size"][$index] < $val_condition) {
                                         if (!$this->errorInCollection($_key)) {
                                             $field = array($_key => $this->msg);
@@ -574,7 +587,6 @@ class Validation
                                 $string = $this->validation_translate[$this->lang]["file_min_size"];
                                 $this->msg = str_replace($search, $replace, $string);
                             }
-                            array_push($this->clientValidation, "validation_file_min_size('".$key."', $val_condition, '".htmlspecialchars($this->msg)."')");
                             if ($_FILES[$key]["size"] < $val_condition) {
                                 if (!$this->errorInCollection($key)) {
                                     $field = array($key => $this->msg);
@@ -1455,7 +1467,51 @@ class Validation
                         }
                         array_push($this->clientValidation, "validation_file_required('".$key."', '".htmlspecialchars($this->msg)."')");
                         break;
+						
+                    case "min_files":
+                        if (preg_match("/\:multiple/", $key)) {
+                            $_key = explode(":", $key)[0];
+						}
+						if (array_key_exists($key.".".$arg_condition, $messages)) {
+							$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+						} else {
+							$string = $this->validation_translate[$this->lang]["min_files"];
+							$this->msg = str_replace($search, $replace, $string);
+						}
+                        if (array_key_exists($key, $events)) {
+                            $the_events = $events[$key];
+                            $the_events = explode("|", $the_events);
+                            
+                            foreach ($the_events as $event) {
+                                $this->clientValidationEvents[$iterator][$key][$event][$e] = "validation_min_files('".$key."', ".$val_condition.", '".htmlspecialchars($this->msg)."')";
+                                $e++;
+                            }
+                        }
+						array_push($this->clientValidation, "validation_min_files('".$key."', ".$val_condition.", '".htmlspecialchars($this->msg)."')");
+                        break;
 
+                    case "max_files":
+                        if (preg_match("/\:multiple/", $key)) {
+                            $_key = explode(":", $key)[0];
+						}
+						if (array_key_exists($key.".".$arg_condition, $messages)) {
+							$this->msg = str_replace($search, $replace, $messages[$key.".".$arg_condition]);
+						} else {
+							$string = $this->validation_translate[$this->lang]["max_files"];
+							$this->msg = str_replace($search, $replace, $string);
+						}
+                        if (array_key_exists($key, $events)) {
+                            $the_events = $events[$key];
+                            $the_events = explode("|", $the_events);
+                            
+                            foreach ($the_events as $event) {
+                                $this->clientValidationEvents[$iterator][$key][$event][$e] = "validation_max_files('".$key."', ".$val_condition.", '".htmlspecialchars($this->msg)."')";
+                                $e++;
+                            }
+                        }
+						array_push($this->clientValidation, "validation_max_files('".$key."', ".$val_condition.", '".htmlspecialchars($this->msg)."')");
+                        break;
+						
                     case "file_min_size":
                         if (preg_match("/\:multiple/", $key)) {
                             $key = explode(":", $key)[0];

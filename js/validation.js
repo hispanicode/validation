@@ -429,6 +429,38 @@ validation_file_required = function(element, message) {
     return true;
 };
 
+validation_min_files = function(element, condition, message) {  
+    file = document.getElementById(element);
+    error_box = $("#error_"+element);
+    error_box.html("");
+    error_box.removeClass("text-danger");
+    error_box.closest(".form-group").removeClass("has-error").removeClass("has-success");
+    if (file.files.length < condition) {
+        error_box.html(message);
+        error_box.addClass("text-danger");
+        error_box.closest(".form-group").addClass("has-error");
+        return false;
+    }
+    error_box.closest(".form-group").addClass("has-success");
+    return true;
+};
+
+validation_max_files = function(element, condition, message) {  
+    file = document.getElementById(element);
+    error_box = $("#error_"+element);
+    error_box.html("");
+    error_box.removeClass("text-danger");
+    error_box.closest(".form-group").removeClass("has-error").removeClass("has-success");
+    if (file.files.length > condition) {
+        error_box.html(message);
+        error_box.addClass("text-danger");
+        error_box.closest(".form-group").addClass("has-error");
+        return false;
+    }
+    error_box.closest(".form-group").addClass("has-success");
+    return true;
+};
+
 validation_file_min_size = function(element, condition, message) {  
     file = document.getElementById(element);
     error_box = $("#error_"+element);
