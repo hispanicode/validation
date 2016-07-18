@@ -1,6 +1,17 @@
 # validation
 
-<h3>Form validation model with fantastic tools for the client and server sides with php and jQuery.</h3>
+<h3>This class can be used to validate forms on the browser and server sides.</h3>
+
+<p>
+It can take an array of validation rules and generates JavaScript to perform validation on the browser side of given form fields.
+</p>
+<p>
+The class can generate validation JavaScript code using jQuery that is performed for different form events like when the form input is changed, the form loses focus, when a key is released, etc..
+</p>
+<p>
+It can also perform validation of the submitted form input on the server side with the class PHP code.
+Currently in can perform validation types like: required value, minimum length, maximum length, required file, file minimum and maximum size, file MIME type, image maximum width and height, checked checkbox, valid date and time format, IP address, valid email address, valid URL, match regular expression, maximum and minimum length, value equal to another input, valid number, minumum and maximum number, etc..
+</p>
 
 <strong>Important: for client-side validation it is necessary to include jQuery and file <a href="https://github.com/hispanicode/validation/tree/master/js">validation.js</a></strong>
 
